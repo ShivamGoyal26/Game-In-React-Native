@@ -5,6 +5,8 @@ import {
     StyleSheet,
     TouchableWithoutFeedback,
     Keyboard,
+    Alert,
+    Button,
 } from 'react-native';
 
 import Card from '../components/Card';
@@ -12,6 +14,8 @@ import CustomButton from '../components/Button';
 import Colors from '../constants/colors'
 import colors from '../constants/colors';
 import CustomTextInput from '../components/TextInput'
+import NumberContainers from '../components/NumberContainer';
+
 
 
 const StartGameScreen = props => {
@@ -28,7 +32,6 @@ const StartGameScreen = props => {
     const resetInputHandler = () => {
         setEnteredValue('');
         setConfirmed(false);
-        // what if there we do not add the set confirmed value 
 
     };
 
@@ -37,18 +40,32 @@ const StartGameScreen = props => {
     const confirmInputHandler = () => {
         const chosenNumber = parseInt(enteredValue);
         if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+            Alert.alert(
+                'Invalid Number!',
+                'Number has to be in between 1 and 99',
+                [{
+                    text: 'Okay', style: 'destructive',
+                    onPress: resetInputHandler
+                }]
+            )
             return;
         }
         setConfirmed(true);
         setSelectedNumber(chosenNumber);
         setEnteredValue('');
+        Keyboard.dismiss();
 
     };
 
     let confirmedOuput;
 
     if (confirmed) {
-        confirmedOuput = <Text>Chosen Number: {selectedNumber}</Text>
+        confirmedOuput =
+            <Card style={styles.summaryContainer}>
+            <Text>You Selected</Text>
+                <NumberContainers>{selectedNumber}</NumberContainers>
+                <Button title="START GAME"/>
+            </Card>
     }
 
 
@@ -101,9 +118,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: 15,
     },
-    // button: {
-    //     width: 100,
-    // },
+    summaryContainer: {
+        marginTop: 20,
+        alignItems: 'center',
+    },
 });
 
 export default StartGameScreen;
