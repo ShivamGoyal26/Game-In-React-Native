@@ -4,7 +4,7 @@ import { View, StyleSheet, Button } from 'react-native';
 const CustomButton = props => {
     return (
         <View style={styles.button}>
-            <Button title= {props.title} onPress={props.action} color={props.colorCode} />
+            <Button title={props.title} onPress={props.action} color={props.colorCode} />
         </View>
     );
 };
