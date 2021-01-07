@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     View,
     Text,
@@ -11,15 +11,11 @@ import Card from '../components/Card';
 import CustomButton from '../components/Button';
 import Colors from '../constants/colors'
 import colors from '../constants/colors';
+import CustomTextInput from '../components/TextInput'
+
 
 const StartGameScreen = props => {
 
-    const [enteredValue, setEnteredValue] = useState('');
-    const [confirmed, setConfirmed] =  useState(false);
-
-    const numberInputHandler = inputText => {
-        setEnteredValue(inputText.replace(/[^0-9]/g, ''));
-    };
 
     const resetInputHandler = () => {
         setEnteredValue('');
@@ -27,28 +23,26 @@ const StartGameScreen = props => {
         setEnteredValue('');
     };
 
-    const confirmInputHandler = () => {
-        setConfirmed(true);
-    };
 
     return (
         <TouchableWithoutFeedback onPress={() => {
             Keyboard.dismiss();
         }}>
-             <View style={styles.screen}>
-            <Text style={styles.title}>Start a New Game!</Text>
-            <Card style={styles.inputContainer}>
-                <Text>Select a Number</Text>
-                {/* Here add the input thing  */}
+            <View style={styles.screen}>
+                <Text style={styles.title}>Start a New Game!</Text>
+                <Card style={styles.inputContainer}>
+                    <Text>Select a Number</Text>
 
-                <View style={styles.buttonContainer}>
-                    <CustomButton title="Reset" colorCode={Colors.accent} action={resetInputHandler} />
-                    <CustomButton title="Confirm" colorCode={colors.primary} />
-                </View>
-            </Card>
-        </View>
+                    <CustomTextInput></CustomTextInput>
+
+                    <View style={styles.buttonContainer}>
+                        <CustomButton title="Reset" colorCode={Colors.accent} action={resetInputHandler} />
+                        <CustomButton title="Confirm" colorCode={colors.primary} />
+                    </View>
+                </Card>
+            </View>
         </TouchableWithoutFeedback>
-       
+
 
     );
 };
